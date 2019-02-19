@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 
 {% block content %}
@@ -8,9 +9,48 @@
   <div class="card-body">
     <h5 class="card-title" style="color: 000034;">{{classroom.name}} {{classroom.subject}}</h5>
     <p class="card-text" style="color: 000034;">{{classroom.year}}</p>
-    <a href="{% url 'classroom-update' classroom.id %}" class="btn" style="background-color: #000034; color: white;">Update</a>
-    <a href="{% url 'classroom-delete' classroom.id %}" class="btn" style="background-color: #FFA500; color: #000034;">Delete</a>
+    <p class="card-text" style="color: 000034;">Teacher: {{classroom.teacher}}</p>
+    <table style="width:100%">
+    	
+    	<br>
+    		<tr>
+    			<th>Student Name</th>
+    			<th>Student Birth Date</th>
+    			<th>Student Gender</th>
+    			<th>Student Exam Grade</th>
+    		</tr>
+    		{% for student in students %}
+    		<tr>
+			    <td>
+			    	{{student.name}}
+			    </td>
+			    <td>
+			    	 {{student.date_of_birth}}
+			    </td>
+			    <td>
+			    	 {{student.gender}}
+			    </td>
+			    <td>
+			    	 {{student.exam_grade}}
+			    </td>
+			    {% if classroom.teacher == request.user %}
+			    	<td>
+			    	<a href="{% url 'student-update' classroom_id=classroom.id student_id=student.id%}" class="btn" style="background-color: white; color: green;">Update</a>
+   				<a href="{% url 'student-delete' classroom_id=classroom.id student_id=student.id%}" class="btn" style="background-color: white; color: red;">Delete</a>
+   			</td>
+			    {% endif %}
+			    
+			</tr>
+
+    	{% endfor %}
+    	
+</table>
+    
+    <a href="{% url 'student-create' classroom.id %}" class="btn" style="background-color: #000034; color: white;">Add Student</a>
+    <a href="{% url 'classroom-update' classroom_id=classroom.id%}" class="btn" style="background-color: #000034; color: white;">Update</a>
+    <a href="{% url 'classroom-delete' classroom_id=classroom.id %}" class="btn" style="background-color: #FFA500; color: #000034;">Delete</a>
   </div>
 </div>
+
 
 {% endblock content %}

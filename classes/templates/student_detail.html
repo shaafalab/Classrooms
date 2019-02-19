@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card text-center">
+  <div class="card-header" style="background-color: #e3f2fd; color: 000034;">
+    Classroom Details
+  </div>
+  <div class="card-body">
+    <h5 class="card-title" style="color: 000034;">{{student.name}} {{student.ate_of_birth}}</h5>
+    <p class="card-text" style="color: 000034;">{{student.gender}}</p>
+     <p class="card-text" style="color: 000034;">{{student.exam_grade}}</p>
+    <a href="{% url 'student-update' classroom.id %}" class="btn" style="background-color: #000034; color: white;">Update</a>
+    <a href="{% url 'student-delete' student.id %}" class="btn" style="background-color: #FFA500; color: #000034;">Delete</a>
+  </div>
+</div>
+
+{% endblock content %}
